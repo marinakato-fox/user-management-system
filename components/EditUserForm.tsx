@@ -93,6 +93,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ ///分割代入
                 label="名前"
                 fullWidth
                 margin="normal"
+                InputLabelProps={{ shrink: true }}
                 {...register("name", { required: "名前は必須です。" })}
                 error={!!errors.name}
                 helperText={errors.name?.message}
@@ -103,6 +104,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ ///分割代入
                 type="email"
                 fullWidth
                 margin="normal"
+                InputLabelProps={{ shrink: true }}
                 {...register("email", {
                   required: "メールは必須です。",
                   pattern: {
@@ -118,6 +120,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ ///分割代入
                 label="役職"
                 fullWidth
                 margin="normal"
+                InputLabelProps={{ shrink: true }}
                 {...register("role", { required: "ロール設定は必須です。" })}
                 error={!!errors.role}
                 helperText={errors.role?.message}

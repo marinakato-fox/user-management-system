@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';  ///ホーム画面
 import { Typography, Box } from '@mui/material';
 
 const HomePage: React.FC = () => {

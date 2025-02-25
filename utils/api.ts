@@ -1,10 +1,10 @@
 import { supabase } from './supabaseClient';
 import { User } from '../types/User';
 
-export const fetchUsers = async (): Promise<User[]> => {
+export const fetchUsers = async (): Promise<User[]> => {  ///全データ取得fetchの代わり
   const { data, error } = await supabase
     .from<'dev_users', User>('dev_users') // テーブル名と型を2つ指定
-    .select('*');
+    .select('*');                       ///sql風のコード
 
   if (error) {
     throw error;

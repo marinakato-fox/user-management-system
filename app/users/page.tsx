@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../../utils/api';
 import { User } from '../../types/User';
 import UserCard from '../../components/UserCard';
+import UserList from '../../components/UserList';
 import { Typography, CircularProgress, Alert, Box } from '@mui/material';
+
 
 const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -40,9 +42,7 @@ const UsersPage: React.FC = () => {
       <Typography variant="h4" gutterBottom>
         ユーザー一覧
       </Typography>
-      {users.map(user => (
-        <UserCard key={user.id} user={user} />
-      ))}
+      <UserList users={users}/>
     </Box>
   );
 }

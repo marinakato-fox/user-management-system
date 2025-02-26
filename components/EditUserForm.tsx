@@ -39,33 +39,35 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ //RegisterFormは<RegisterF
 }) => {     
       const {
         register,///入力フィールドを管理対象にする
-        handleSubmit,//バリデーションの管理
+        handleSubmit,//バリデーションの管理　　入力規則(全部かなにするとか)
         setValue,///特定フィールドの値をプログラミング的に更新する
         formState: { errors },///フォームの状態を管理
       } = useForm<EditUserFormInputs>();///上のやつはuseForm(フォームの管理)の機能でこの形で書く。続く型は入力データの型を定義
 
+const [error, setError] = useState<string | null>(null); ///エラーの状態管理
+const [success, setSuccess] = useState<boolean>(false);///成功したかどうかの管理
+
       useEffect(() => {  ///データ取得処理
         const getUser = async () => {///async:非同期処理(データ取得とかの時間がかかる処理)をする→バックグラウンドで実行してほかの処理を並行して進める
-          try {
+          try {///
             const userData:User | null = await fetchUserById(userId);///fetchUserByIdで取得したデータはUser型かなしか。fetchUserByIdはUserIdを引数に持つ
             if(userData){///もし、取得したデータが存在したら
-            setValue("name", userData.name);///setValue(更新するフィールド名, 設定する値,　以降オプション)の順で引数をうけとる
+            setValue("name", userData.name);///setValue(更新するフィールド名, 設定する値,　以降オプション)の順で引数をうけとる onChangeの役割も持つ
             setValue("email", userData.email);
             setValue("role", userData.role);
             }
             else{///存在しなかったら
             setError("ユーザーが見つかりませんでした。")///状態管理でエラーを出す
             }
-          } catch (err) {///tryでなにかエラーが見つかった時にする(err)はエラーを受け取る引数
-            setError("ユーザー情報の取得に失敗しました。");
+          } catch (err) {///tryでなにかエラーが見つかった時にする(err)はエラーを受け取る引数APIから帰ってきたエラーが格納されてる
+            setError("ユーザー情報の取得に失敗しました。"+ err);///
           }
         };///最後に一覧に飛ぶ処理を書くとstorybook
 
         getUser();///関数を実行
       }, [userId, setValue]);///useEffectは最初と、userId, setValueに変更があった際にレンダリングする
 
-      const [error, setError] = useState<string | null>(null); ///エラーの状態管理
-      const [success, setSuccess] = useState<boolean>(false);///成功したかどうかの管理
+      
       const onSubmit = async (data: EditUserFormInputs) => {///フォームで入力されたdataを渡す
         try {
           await updateUser(userId, data);///順番がある　関数を定義したときの順番 取得が完了するまで待ってくれる

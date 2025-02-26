@@ -4,23 +4,37 @@
 
 import React from "react";
 import EditUserForm from "../../../../components/EditUserForm";
-import { useParams } from "next/navigation";
+import { useParams, useRouter} from "next/navigation";
 import { Typography, Box } from "@mui/material";
+
 
 // TODO: URLパラメータからユーザーIDを取得し、EditUserFormコンポーネントに渡す
 const EditUserPage: React.FC = () => {
+  const params = useParams();///idを取得するためにuseParamsを使う
+  const id = params?.id
+  const router = useRouter();
 
   // ユーザーIDが取得できていない場合はnullを返す
   if (!id || Array.isArray(id)) {
     return <Typography>ユーザーIDが無効です。</Typography>;
   }
 
+  // 登録成功後にユーザー一覧ページにリダイレクト
+  const handleSuccess = () => {
+    router.push("/users");
+  };
+  const handleError = (error: any) => {
+    console.error("登録エラー:", error);
+  };
+
   return (
     <Box sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom>
         ユーザー編集
       </Typography>
-    </Box>
+      <EditUserForm userId={Number(id)} onSuccess={handleSuccess} onError={handleError}/>
+    </Box>///型変換Number()でnumber型で受け取れる
+
   );
 };
 

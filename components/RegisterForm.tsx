@@ -10,21 +10,22 @@ interface RegisterFormInputs {
 }
 // 成功後のリダイレクトなどを行う場合
 interface RegisterFormProps {
-  onSuccess?: () => void;
-  onError?: (error: any) => void;
-  disabled?: boolean;
+  onSuccess?: () => void;  
+  onError?: (error: any) => void; 
+  disabled?: boolean;  
 }
 // TODO: 新規登録フォームコンポーネントを実装する
 const RegisterForm: React.FC<RegisterFormProps> = ({
-  onSuccess,
+  onSuccess,                                        
   onError,
   disabled = false,
 }) => {
   const {
-    register,
+    register, 
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormInputs>();
+
   const [error, setError] = React.useState<string | null>(null);
   const [success, setSuccess] = React.useState<boolean>(false);
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {

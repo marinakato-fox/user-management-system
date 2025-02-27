@@ -16,7 +16,7 @@ const DeleteUserButton: React.FC<DeleteUserButtonProps> = ({userId, onDelete}) =
                 await softDeleteUser(userId);
                 onDelete(userId);
                 } catch (err) {///処理でエラーが発生したら
-                    alert("ユーザーが削除されました。")
+                alert("ユーザーが削除できませんでした。")
                 }
           };
     }

@@ -19,7 +19,7 @@ const UserList: React.FC<UserListProps> = ({ initialUsers }) => {
     return (
         <>
             {users.map(user => (
-                <UserCard key={user.id} user={user} onUserDelete={handleUserDelete} />
+                <UserCard key={user.id} user={user} onUserDeleted={handleUserDelete} />
             ))}
         </>
     )

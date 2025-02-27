@@ -1,6 +1,6 @@
 // app/users/[id]/edit/page.tsx
 
-"use client"; // クライアントコンポーネントとしてマーク
+"use client"; // クライアントコンポーネントとしてマーク 全ページsupabaseつかってるから、このクライアントの配下で動くっていう指示
 
 import React from "react";
 import EditUserForm from "../../../../components/EditUserForm";
@@ -10,8 +10,7 @@ import { Typography, Box } from "@mui/material";
 
 // TODO: URLパラメータからユーザーIDを取得し、EditUserFormコンポーネントに渡す
 const EditUserPage: React.FC = () => {
-  const params = useParams();///idを取得するためにuseParamsを使う
-  const id = params?.id
+  const id = useParams().id;///idを取得するためにuseParamsを使う url上にあるパラメータを全部取得できる
   const router = useRouter();
 
   // ユーザーIDが取得できていない場合はnullを返す

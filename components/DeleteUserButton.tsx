@@ -1,38 +1,63 @@
-
-// components/DeleteUserButton.tsx
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { softDeleteUser } from "../utils/api";
 import CustomButton from "./parts/CustomButton";
+import CustomModal from "./parts/CustomModal";
+
 interface DeleteUserButtonProps {
   userId: number;
-  onDelete: (userId:number) => void;
+  onDelete: (userId: number) => void;
 }
-// TODO: ユーザーを削除するボタンコンポーネントを実装する
+
 const DeleteUserButton: React.FC<DeleteUserButtonProps> = ({
   userId,
   onDelete,
 }) => {
+  const [open, setOpen] = useState(false); // モーダルの開閉状態
+  const [isConfirm, setIsConfirm] = useState(false); // 確認ボタンが押されたかどうか
+
+  // モーダルを開くための関数
+  const handleModal = () => {
+    setOpen(true);
+  };
+
+  // 削除処理
   const handleDelete = async () => {
-    if (confirm("本当にこのユーザーを削除しますか？")) {
+    if (isConfirm) {
       try {
-        await softDeleteUser(userId);
-        onDelete(userId);
+        await softDeleteUser(userId); // ユーザー削除
+        onDelete(userId); // 親コンポーネントに削除通知
+        setOpen(false); // モーダルを閉じる
       } catch (error) {
         alert("削除に失敗しました。" + error);
+        setOpen(false); // エラー時もモーダルを閉じる
       }
     }
   };
+
   return (
-    <CustomButton
-      variantType="secondary"
-      color="error"
-      sx={{ ml: 1 }}
-      onClick={handleDelete}
-      children="削除"
-    />
+    <>
+      <CustomButton
+        variantType="secondary"
+        color="error"
+        sx={{ ml: 1 }}
+        onClick={handleModal} // モーダルを開く
+        children="削除"
+      />
+      <CustomModal
+        title="削除ボタンが押されました"
+        content="本当に削除しますか？"
+        open={open}
+        onClose={() => setOpen(false)} // モーダルを閉じる
+        onConfirm={() => { 
+          setIsConfirm(true); // 確認ボタンが押されたことを記録
+          handleDelete(); // 削除処理を実行
+        }}
+      />
+    </>
   );
 };
+
 export default DeleteUserButton;
 
 

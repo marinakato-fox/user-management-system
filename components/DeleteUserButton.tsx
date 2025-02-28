@@ -3,6 +3,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { softDeleteUser } from "../utils/api";
+import CustomButton from "./parts/CustomButton";
 interface DeleteUserButtonProps {
   userId: number;
   onDelete: (userId:number) => void;
@@ -23,14 +24,13 @@ const DeleteUserButton: React.FC<DeleteUserButtonProps> = ({
     }
   };
   return (
-    <Button
-      variant="outlined"
+    <CustomButton
+      variantType="secondary"
       color="error"
       sx={{ ml: 1 }}
       onClick={handleDelete}
-    >
-      削除
-    </Button>
+      children="削除"
+    />
   );
 };
 export default DeleteUserButton;

@@ -30,7 +30,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ variantType = 'primary', ch
 		// TODO: <Button>の実装
 		// プロップスには[color][variant]を設定し、{...props}を最後に設定する
         <Button 
-            variant="contained"///variant:スタイルや種類のこと
+            variant={props.variant}///variant:スタイルや種類のこと
             color={color}
             // sx={{backgroundColor}} ///sx={{}} CSS を JSX の中で直接書けるスタイルプロパティ
             {...props}>{children}</Button>

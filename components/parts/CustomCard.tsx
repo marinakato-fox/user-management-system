@@ -7,7 +7,7 @@ import { Card, CardContent, Typography, CardActions } from "@mui/material";
 interface CustomCardProps {
     title: string;
     description: string;
-    actions?: React.ReactNode;
+    actions?: React.ReactNode;///すべての要素が受け取れる
 }
 
 const CustomCard: React.FC<CustomCardProps> = ({
